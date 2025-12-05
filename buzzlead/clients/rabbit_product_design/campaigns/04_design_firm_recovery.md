@@ -167,6 +167,197 @@ copywriting:
 
 ---
 
+## Strategic Rationale (WHY This Campaign Works)
+
+```yaml
+strategic_rationale:
+  why_this_trigger:
+    timing_logic: "Someone posting publicly about design firm frustration is actively seeking solutions. The pain is fresh (usually 30-60 days), they've already spent money, and they're emotionally ready to try something different."
+    psychological_driver: "Burned founders are risk-averse but also desperate. They've lost trust in the category. Demonstrating understanding of their specific pain earns attention that generic outreach doesn't."
+    competitive_advantage: "Rabbit's 'DFM validation at every stage' directly addresses the #1 failure mode: pretty CAD files that can't be manufactured. The 50% reduction in rework is a specific, believable claim."
+
+  why_this_persona:
+    decision_authority: "Founders who've been burned have full authority. They've already proven willingness to spend on product development. Now they need a better vendor."
+    pain_ownership: "This is deeply personal. They likely feel embarrassed about wasting money, frustrated about lost time, and anxious about trying again. The pain is visceral."
+    budget_access: "They've already budgeted for this. In fact, they've already spent $20K-$50K+ with the failed firm. They have money allocated; they just need a trustworthy vendor."
+
+  why_this_message:
+    hook_psychology: "Referencing their specific post ('Saw your post about...') proves you listened. Most vendors blast generic pitches. Personal acknowledgment of their pain builds instant rapport."
+    proof_selection: "'50% fewer prototype iterations' is specific and addresses their exact failure. '27 years experience' suggests wisdom vs. the junior team that failed them."
+    objection_preemption: "Leading with empathy ('We work with a lot of founders in the same situation') normalizes their experience and reduces shame. They're not stupid—they just hired the wrong firm."
+
+  expected_conversion_logic:
+    why_they_reply: "Someone finally understands their pain. The email doesn't feel like a sales pitch—it feels like someone who's seen this pattern before and might actually help."
+    why_they_meet: "Low risk, high potential upside. They've already proven they'll invest in product development. A conversation might reveal whether Rabbit is different."
+    why_they_buy: "Fear of another failure is high, but so is the sunk cost. If Rabbit can demonstrate credibility (27 years, DFM process, specific approach), they'll take the bet. Alternative is giving up on the project."
+```
+
+---
+
+## List Building Methodology (HOW To Construct This List)
+
+```yaml
+list_building_methodology:
+  step_1_source_identification:
+    primary_source: "LinkedIn posts search - '\"design firm\" OR \"product development\" + (frustrated OR disappointed OR failed OR wasted money)'"
+    secondary_sources:
+      - "Reddit r/hwstartups and r/entrepreneur threads about bad design firm experiences"
+      - "Twitter/X threads about product development failures"
+      - "G2/Clutch negative reviews of competitor design firms"
+    manual_sources:
+      - "Glassdoor reviews mentioning client issues at Gembah, Design 1st, etc."
+      - "HackerNews threads about hardware development"
+      - "Founder community forums (Indie Hackers, etc.)"
+
+  step_2_company_filtering:
+    must_have_criteria:
+      - "Posted about design firm frustration within last 60 days"
+      - "Hardware/physical product company (verify from profile/company)"
+      - "Founder, CEO, or product leader (not junior employee venting)"
+      - "US-based or US market"
+    nice_to_have_criteria:
+      - "Specific dollar amount mentioned (indicates budget scope)"
+      - "Specific failure described (more personalization opportunity)"
+      - "Multiple posts about the issue (high frustration = high motivation)"
+    exclusion_criteria:
+      - "Complaints about branding/marketing agencies (not product development)"
+      - "Software/SaaS companies"
+      - "Automotive, aerospace, defense"
+      - "Complaints about Rabbit or Adam Tavin specifically (obviously)"
+
+  step_3_person_identification:
+    target_titles_priority:
+      tier_1: ["Founder", "CEO", "Co-Founder"]
+      tier_2: ["CTO", "VP Product", "VP Engineering"]
+      tier_3: ["Director of Product", "Head of Product"]
+    max_contacts_per_company: 1
+    title_selection_logic: "Target the person who posted. This is personal outreach, not company targeting."
+
+  step_4_data_validation:
+    email_requirements:
+      minimum_confidence: 0.8
+      required_format: "business email preferred, personal acceptable (founders often use personal)"
+      fallback_action: "LinkedIn DM - this audience is more receptive to personal outreach"
+    company_validation:
+      verify_website_live: true
+      verify_company_active: true
+      recency_check: "Post is within 60 days"
+
+  step_5_enrichment_sequence:
+    order_of_operations:
+      - "Capture full text of their frustration post (for personalization)"
+      - "Verify company is hardware (not software)"
+      - "Find company website and product description"
+      - "Check if they mentioned specific firms or dollar amounts"
+    cost_optimization: "This is a manual-heavy campaign. Budget time for individual research per lead."
+
+  step_6_deduplication:
+    dedupe_against:
+      - "Rabbit DNC list"
+      - "Other campaigns (unlikely overlap due to trigger specificity)"
+    merge_logic: "Keep in Design Firm Recovery - this trigger overrides others."
+```
+
+---
+
+## Sample Validation (Before Full Pull)
+
+```yaml
+sample_validation:
+  purpose: "Test that frustration signals yield legitimate hardware founders with reachable contacts"
+
+  sample_size: 8 companies
+
+  validation_checklist:
+    - question: "Is this a genuine hardware product company?"
+      pass_criteria: "Physical product visible on website or described in post"
+      fail_example: "Software company frustrated with agency, or branding complaint"
+
+    - question: "Is the frustration about product development (not marketing/branding)?"
+      pass_criteria: "Mentions CAD, prototyping, manufacturing, engineering"
+      fail_example: "Unhappy with logo design or marketing campaign"
+
+    - question: "Is the post recent enough to act on?"
+      pass_criteria: "Posted within last 60 days"
+      fail_example: "Frustration post from 2 years ago"
+
+    - question: "Is the poster a decision-maker?"
+      pass_criteria: "Founder, CEO, or product leader"
+      fail_example: "Engineer venting about their company's vendor"
+
+    - question: "Can we personalize outreach?"
+      pass_criteria: "Specific details in post that can be referenced"
+      fail_example: "Generic 'design firms suck' with no specifics"
+
+  sample_companies:
+    - company_name: "Example: Smart Home Startup"
+      why_they_fit: "Founder posted on LinkedIn about wasting $25K on offshore design firm that delivered un-manufacturable CAD files"
+      contact_name: "[From post author]"
+      contact_title: "Founder"
+      trigger_evidence: "LinkedIn post, 3 weeks ago, specific dollar amount and failure mode"
+      validation_status: "PASS - High personalization opportunity"
+
+    - company_name: "Example: Fitness Equipment Startup"
+      why_they_fit: "CEO posted Reddit thread about prototype that failed in production"
+      contact_name: "[From Reddit username/profile]"
+      contact_title: "CEO"
+      trigger_evidence: "Reddit r/hwstartups, mentions manufacturing failure"
+      validation_status: "PASS - Clear hardware, specific pain"
+
+    - company_name: "Example: IoT Sensor Company"
+      why_they_fit: "Founder tweeted about third design firm in 2 years"
+      contact_name: "[From Twitter/X]"
+      contact_title: "Founder"
+      trigger_evidence: "Twitter thread, mentions multiple firm failures"
+      validation_status: "PASS - High frustration, ready to change"
+
+    - company_name: "Example: DTC Brand"
+      why_they_fit: "Posted about 'terrible experience' with product development"
+      contact_name: "[From post]"
+      contact_title: "Co-Founder"
+      trigger_evidence: "LinkedIn post"
+      validation_status: "NEEDS REVIEW - Verify it's hardware, not packaging/branding"
+
+    - company_name: "Example: App Company"
+      why_they_fit: "Frustrated with 'product agency'"
+      contact_name: "[From post]"
+      contact_title: "CEO"
+      trigger_evidence: "LinkedIn post"
+      validation_status: "FAIL - Software company, not hardware"
+
+    - company_name: "Gembah 1-Star Reviewer"
+      why_they_fit: "Left 1-star G2 review with detailed complaint"
+      contact_name: "[From review if identifiable]"
+      contact_title: "Unknown"
+      trigger_evidence: "G2 review"
+      validation_status: "NEEDS REVIEW - May not be identifiable"
+
+    - company_name: "Example: Outdoor Gear Startup"
+      why_they_fit: "HackerNews comment about design firm failures"
+      contact_name: "[From HN username]"
+      contact_title: "Founder"
+      trigger_evidence: "HackerNews thread"
+      validation_status: "PASS - Hardware, specific pain"
+
+    - company_name: "Example: Consultant Complaining"
+      why_they_fit: "Posted about client's bad experience"
+      contact_name: "N/A"
+      contact_title: "Consultant"
+      trigger_evidence: "LinkedIn post"
+      validation_status: "FAIL - Not the buyer, third party"
+
+  go_no_go_decision:
+    pass_threshold: "6 of 8 samples must pass all criteria"
+    if_pass: "Proceed with full 300-contact pull (note: this is a slower, more manual campaign)"
+    if_fail: "Refine search queries and source selection"
+    common_filter_adjustments:
+      - "Add 'prototype' or 'manufacturing' keywords to filter out branding complaints"
+      - "Require company website verification before including"
+      - "Focus on LinkedIn over Reddit (easier to identify/reach)"
+```
+
+---
+
 ## Campaign Metrics Targets
 
 - **List size:** 300 contacts

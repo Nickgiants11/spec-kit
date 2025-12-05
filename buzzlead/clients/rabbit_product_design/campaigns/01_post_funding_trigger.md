@@ -171,6 +171,198 @@ copywriting:
 
 ---
 
+## Strategic Rationale (WHY This Campaign Works)
+
+```yaml
+strategic_rationale:
+  why_this_trigger:
+    timing_logic: "Post-funding creates a 60-90 day window where founders are actively seeking vendors to deploy capital. They have money, board pressure to show progress, and hiring timelines that don't match their ambitions."
+    psychological_driver: "Pressure to show progress to investors creates urgency. Founders feel the clock ticking on their runway and need to demonstrate product milestones quickly."
+    competitive_advantage: "Rabbit provides instant senior capacity (27 years avg) vs. 3-6 month hiring timeline. While competitors require discovery phases, Rabbit can start executing immediately."
+
+  why_this_persona:
+    decision_authority: "Founders at <50 employees make vendor decisions without procurement. Post-funding, they have explicit budget authority and board mandate to spend on product development."
+    pain_ownership: "The founder IS the product - delays reflect directly on them. They personally feel every missed milestone and investor question about progress."
+    budget_access: "Post-Series A companies typically have $50K-200K allocated for external product development. Seed rounds usually have $25K-75K available for design/engineering services."
+
+  why_this_message:
+    hook_psychology: "Congratulating on funding disarms sales resistance. Then pivoting to 'the real challenge ahead' creates authority - we've seen this pattern before."
+    proof_selection: "'27 years experience' and '1,000+ products' address the fear of working with inexperienced freelancers. Specific numbers feel credible."
+    objection_preemption: "'Without the 6-month hiring cycle' preempts the 'we'll hire our own team' objection. It frames Rabbit as a bridge, not a replacement."
+
+  expected_conversion_logic:
+    why_they_reply: "They're actively looking for solutions. Funding announcement + product development need = high-intent prospect. The email arrives when they're already thinking about this problem."
+    why_they_meet: "Meeting offers potential shortcut to their biggest bottleneck. Even if they don't hire Rabbit, the conversation might provide valuable insight."
+    why_they_buy: "Time pressure (investor expectations) + clear fit (hardware expertise) + reasonable cost (half of agencies) = fast decision. No lengthy evaluation process at this stage."
+```
+
+---
+
+## List Building Methodology (HOW To Construct This List)
+
+```yaml
+list_building_methodology:
+  step_1_source_identification:
+    primary_source: "AI Arc company search with funding_status=funded and funding_date_min=2024-06-01"
+    secondary_sources:
+      - "Crunchbase funding announcements (filter: Hardware, IoT, Consumer Electronics categories)"
+      - "TechCrunch hardware startup funding coverage"
+      - "PR Newswire funding announcements"
+    manual_sources:
+      - "Y Combinator hardware company directory (recent batches)"
+      - "SBIR.gov hardware awards (indicates serious development budget)"
+
+  step_2_company_filtering:
+    must_have_criteria:
+      - "Funded in last 6 months (Seed to Series B)"
+      - "US-based headquarters"
+      - "Hardware/IoT/Consumer Electronics - makes physical products"
+      - "5-100 employees (sweet spot: 10-50)"
+    nice_to_have_criteria:
+      - "Active job postings for engineers (signals growth)"
+      - "Recently mentioned in tech press (signals momentum)"
+      - "Product visible on website (validates hardware company)"
+    exclusion_criteria:
+      - "Enterprise companies (>100 employees) - different buying process"
+      - "Automotive, aerospace, defense industries - excluded per client"
+      - "Software-only companies (SaaS, apps) - no hardware need"
+      - "Companies on competitor list (Gembah, Design 1st, etc.)"
+
+  step_3_person_identification:
+    target_titles_priority:
+      tier_1: ["CEO", "Founder", "Co-Founder"]
+      tier_2: ["CTO", "Chief Product Officer"]
+      tier_3: ["VP Engineering", "VP Product"]
+    max_contacts_per_company: 2
+    title_selection_logic: "Prefer Founder/CEO (full budget authority). Add CTO only if Founder not found or company >30 employees."
+
+  step_4_data_validation:
+    email_requirements:
+      minimum_confidence: 0.8
+      required_format: "business email (not personal Gmail/Yahoo)"
+      fallback_action: "Flag for LinkedIn outreach if no business email"
+    company_validation:
+      verify_website_live: true
+      verify_company_active: true
+      recency_check: "Funding announced within last 6 months"
+
+  step_5_enrichment_sequence:
+    order_of_operations:
+      - "Pull company homepage with Jina for product context"
+      - "Search Google News for funding announcement details (amount, investors, use of funds)"
+      - "Verify Crunchbase data for funding round confirmation"
+      - "Check LinkedIn for recent employee growth"
+    cost_optimization: "Only enrich companies that pass step 2-4 validation. Batch enrichment in groups of 50."
+
+  step_6_deduplication:
+    dedupe_against:
+      - "Rabbit Product Design DNC list"
+      - "Previous campaign exports"
+      - "Other campaigns in this batch (CES, Hiring Surge may overlap)"
+    merge_logic: "Keep in Post-Funding campaign (highest priority). Remove from lower-priority campaigns if duplicate."
+```
+
+---
+
+## Sample Validation (Before Full Pull)
+
+```yaml
+sample_validation:
+  purpose: "Test that filters return relevant recently-funded hardware startups before spending on full pull"
+
+  sample_size: 8 companies
+
+  validation_checklist:
+    - question: "Does this company actually make physical hardware products?"
+      pass_criteria: "Physical product visible on website, not pure software/SaaS"
+      fail_example: "Company describes as 'IoT platform' but only sells software/APIs"
+
+    - question: "Is the funding signal real and recent?"
+      pass_criteria: "Funding announced within last 6 months, confirmable via Crunchbase/news"
+      fail_example: "Last funding was 2 years ago, company just showed up in database refresh"
+
+    - question: "Is the contact a decision-maker?"
+      pass_criteria: "Founder, CEO, CTO, or VP-level with product authority"
+      fail_example: "Marketing coordinator or junior engineer"
+
+    - question: "Can we actually reach them?"
+      pass_criteria: "Business email with 80%+ confidence"
+      fail_example: "Only personal Gmail found, or email bounces"
+
+    - question: "Would Rabbit want this client?"
+      pass_criteria: "Consumer hardware, reasonable size (5-100), US-based"
+      fail_example: "Defense contractor, automotive supplier, or 500+ employee enterprise"
+
+  sample_companies:
+    - company_name: "Ember Technologies"
+      why_they_fit: "Smart mug/drinkware company, raised $23.5M Series C, exactly the kind of consumer hardware Rabbit serves"
+      contact_name: "Clay Alexander"
+      contact_title: "CEO & Founder"
+      trigger_evidence: "Series C funding, 93 employees, consumer electronics"
+      validation_status: "PASS - Ideal ICP match"
+
+    - company_name: "Tonal Systems"
+      why_they_fit: "Connected fitness equipment, raised $250M+, hardware + software + manufacturing"
+      contact_name: "Aly Orady"
+      contact_title: "CEO & Founder"
+      trigger_evidence: "Major funding rounds, fitness hardware"
+      validation_status: "PASS - but may be too large (check employee count)"
+
+    - company_name: "June Life (June Oven)"
+      why_they_fit: "Smart kitchen appliance, raised $29.5M, acquired by Weber - validates smart kitchen market"
+      contact_name: "Acquired by Weber"
+      contact_title: "N/A"
+      trigger_evidence: "Historical example of ideal client type"
+      validation_status: "FAIL - Acquired, not active prospect"
+
+    - company_name: "Lomi (Pela)"
+      why_they_fit: "Smart composter, hardware startup, consumer product"
+      contact_name: "Matt Bertulli"
+      contact_title: "CEO"
+      trigger_evidence: "Successful hardware launch, DTC model"
+      validation_status: "NEEDS REVIEW - Verify recent funding"
+
+    - company_name: "Span.IO"
+      why_they_fit: "Smart electrical panel, $90M+ raised, hardware + installation"
+      contact_name: "Arch Rao"
+      contact_title: "CEO"
+      trigger_evidence: "Series B, smart home/energy"
+      validation_status: "PASS - Strong ICP fit"
+
+    - company_name: "Brilliant Home Technology"
+      why_they_fit: "Smart home control panels, raised $50M+, consumer hardware"
+      contact_name: "Aaron Emigh"
+      contact_title: "CEO & Co-Founder"
+      trigger_evidence: "Series B, smart home hardware"
+      validation_status: "PASS - Ideal fit"
+
+    - company_name: "Masonite Smart Doors"
+      why_they_fit: "Smart door company"
+      contact_name: "N/A"
+      contact_title: "N/A"
+      trigger_evidence: "Enterprise/industrial"
+      validation_status: "FAIL - Too enterprise, wrong market segment"
+
+    - company_name: "Oura Ring"
+      why_they_fit: "Wearable hardware, raised $100M+, consumer electronics"
+      contact_name: "Tom Hale"
+      contact_title: "CEO"
+      trigger_evidence: "Series C, wearables"
+      validation_status: "NEEDS REVIEW - May be too large now"
+
+  go_no_go_decision:
+    pass_threshold: "6 of 8 samples must pass all criteria"
+    if_pass: "Proceed with full 500-contact pull"
+    if_fail: "Adjust filters and re-sample before full pull"
+    common_filter_adjustments:
+      - "Tighten employee count to 10-75 if too many large companies"
+      - "Add 'consumer' keyword if B2B/enterprise appearing"
+      - "Narrow funding date to last 90 days if signals too old"
+      - "Exclude 'platform' or 'SaaS' if software companies appearing"
+```
+
+---
+
 ## Campaign Metrics Targets
 
 - **List size:** 500 contacts

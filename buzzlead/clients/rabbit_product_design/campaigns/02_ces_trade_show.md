@@ -167,6 +167,197 @@ copywriting:
 
 ---
 
+## Strategic Rationale (WHY This Campaign Works)
+
+```yaml
+strategic_rationale:
+  why_this_trigger:
+    timing_logic: "Trade shows create immovable deadlines. CES is January 7-10, 2025 - companies exhibiting MUST have something to show. This deadline creates 3-6 month urgency window where procrastination isn't an option."
+    psychological_driver: "Fear of embarrassment at the booth. Investors, press, and customers will be there. Showing up with a non-working prototype or missing key features is a public failure."
+    competitive_advantage: "Rabbit's 1-2 week prototype turnaround is the killer differentiator. Most agencies need 6-8 weeks minimum. When deadline is 4 weeks away, Rabbit is the only viable option."
+
+  why_this_persona:
+    decision_authority: "VP/Director of Product or Engineering owns the trade show prototype deliverable. They have budget allocated for the show and authority to engage vendors."
+    pain_ownership: "This person's job is on the line if the booth is empty or underwhelming. They personally feel the pressure as the deadline approaches."
+    budget_access: "Trade show budgets are already approved - booth space costs $10K-$100K+. Spending $15K-$30K on a working prototype is an easy justify vs. wasting the booth investment."
+
+  why_this_message:
+    hook_psychology: "Referencing the specific show (CES, Outdoor Retailer) proves research. Mentioning the deadline creates shared urgency - 'we both know the clock is ticking.'"
+    proof_selection: "'Production-grade prototypes in 1-2 weeks' directly addresses the time constraint. 'Machined from real materials, not 3D printed' addresses quality concerns for investor/press demos."
+    objection_preemption: "'Our senior engineers have shipped 1,000+ products' preempts the 'can we trust you with something this important?' objection."
+
+  expected_conversion_logic:
+    why_they_reply: "They're already stressed about the deadline. Email arrives offering exactly what they need (speed + quality). Relief is a powerful motivator."
+    why_they_meet: "Low risk to take a call when deadline is looming. Even if Rabbit isn't the right fit, they might learn something useful."
+    why_they_buy: "Immovable deadline + working solution + reasonable cost = fast decision. No time for lengthy vendor evaluation when the show is 6 weeks away."
+```
+
+---
+
+## List Building Methodology (HOW To Construct This List)
+
+```yaml
+list_building_methodology:
+  step_1_source_identification:
+    primary_source: "CES Exhibitor Gallery (https://www.ces.tech/exhibitor-directory/) - scrape company names from Consumer Electronics, Smart Home, Fitness, Outdoor categories"
+    secondary_sources:
+      - "Outdoor Retailer exhibitor list"
+      - "MD&M West (medical device/manufacturing) exhibitor list"
+      - "Toy Fair exhibitor list"
+    manual_sources:
+      - "Direct scrape of exhibitor PDFs (often available 3-4 months before show)"
+      - "LinkedIn posts mentioning 'excited to exhibit at CES' or 'see you at [show]'"
+
+  step_2_company_filtering:
+    must_have_criteria:
+      - "Confirmed exhibitor at upcoming trade show"
+      - "Hardware/physical product company (not pure software)"
+      - "10-200 employees (larger companies have internal teams)"
+      - "US-based or US presence"
+    nice_to_have_criteria:
+      - "Show is 2-5 months away (sweet spot for urgency)"
+      - "Company has posted about preparing for the show"
+      - "New product launch planned for the show"
+    exclusion_criteria:
+      - "Enterprise companies (>200 employees)"
+      - "Automotive, aerospace, defense"
+      - "Pure software/SaaS companies"
+      - "Companies already working with competitor design firms"
+
+  step_3_person_identification:
+    target_titles_priority:
+      tier_1: ["VP Product", "VP Engineering", "Director of Product", "Director of Engineering"]
+      tier_2: ["Head of Innovation", "Head of R&D", "CPO", "CTO"]
+      tier_3: ["Product Manager", "Engineering Manager"]
+    max_contacts_per_company: 2
+    title_selection_logic: "Target VP/Director level first - they own trade show deliverables. Avoid C-suite unless company <30 employees."
+
+  step_4_data_validation:
+    email_requirements:
+      minimum_confidence: 0.8
+      required_format: "business email"
+      fallback_action: "LinkedIn outreach if no email - trade show urgency warrants multi-channel"
+    company_validation:
+      verify_website_live: true
+      verify_company_active: true
+      recency_check: "Confirm exhibitor status is current year"
+
+  step_5_enrichment_sequence:
+    order_of_operations:
+      - "Confirm exhibitor status and booth number if available"
+      - "Pull company homepage for product context"
+      - "Search Google News for any trade show announcements"
+      - "Check LinkedIn for recent posts about show preparation"
+    cost_optimization: "Only enrich confirmed exhibitors. Focus on shows 2-5 months out."
+
+  step_6_deduplication:
+    dedupe_against:
+      - "Rabbit DNC list"
+      - "Post-Funding campaign (may overlap with recently funded exhibitors)"
+    merge_logic: "Keep in CES campaign if show <4 months away. Otherwise keep in higher-priority campaign."
+```
+
+---
+
+## Sample Validation (Before Full Pull)
+
+```yaml
+sample_validation:
+  purpose: "Test that exhibitor lists yield relevant hardware companies with reachable decision-makers"
+
+  sample_size: 8 companies
+
+  validation_checklist:
+    - question: "Is this company actually exhibiting at the trade show?"
+      pass_criteria: "Listed in official exhibitor directory with booth number"
+      fail_example: "Company mentioned wanting to exhibit but isn't confirmed"
+
+    - question: "Do they make physical hardware products?"
+      pass_criteria: "Product visible on website, not pure software/platform"
+      fail_example: "Software company with 'IoT' in name but no physical products"
+
+    - question: "Is the show timeline relevant?"
+      pass_criteria: "Show is 2-6 months away - urgent but not impossible"
+      fail_example: "Show is next week (too late) or 9 months away (no urgency)"
+
+    - question: "Is the contact relevant to product development?"
+      pass_criteria: "VP/Director of Product, Engineering, or R&D"
+      fail_example: "Marketing or Sales executive"
+
+    - question: "Would they benefit from rapid prototyping?"
+      pass_criteria: "Company size and stage suggests they need external help"
+      fail_example: "Large company (500+ employees) with internal design team"
+
+  sample_companies:
+    - company_name: "Ring (Amazon)"
+      why_they_fit: "Smart home security, CES exhibitor"
+      contact_name: "N/A"
+      contact_title: "N/A"
+      trigger_evidence: "CES exhibitor"
+      validation_status: "FAIL - Owned by Amazon, too large"
+
+    - company_name: "Wyze Labs"
+      why_they_fit: "Smart home cameras/devices, frequent CES exhibitor"
+      contact_name: "Dave Crosby"
+      contact_title: "VP of Product"
+      trigger_evidence: "CES exhibitor, consumer hardware"
+      validation_status: "NEEDS REVIEW - Check employee count"
+
+    - company_name: "Anker Innovations"
+      why_they_fit: "Consumer electronics, CES exhibitor"
+      contact_name: "N/A"
+      contact_title: "N/A"
+      trigger_evidence: "CES exhibitor"
+      validation_status: "FAIL - Too large (1000+ employees)"
+
+    - company_name: "Nanoleaf"
+      why_they_fit: "Smart lighting, CES exhibitor, design-focused"
+      contact_name: "Gimmy Chu"
+      contact_title: "CEO & Co-Founder"
+      trigger_evidence: "CES exhibitor, consumer hardware, ~100 employees"
+      validation_status: "PASS - Ideal fit"
+
+    - company_name: "Ecobee"
+      why_they_fit: "Smart thermostat, CES exhibitor"
+      contact_name: "Stuart Lombard"
+      contact_title: "CEO & Founder"
+      trigger_evidence: "CES exhibitor, smart home"
+      validation_status: "NEEDS REVIEW - May have internal team"
+
+    - company_name: "LIFX"
+      why_they_fit: "Smart lighting, CES exhibitor"
+      contact_name: "N/A"
+      contact_title: "N/A"
+      trigger_evidence: "CES exhibitor, consumer hardware"
+      validation_status: "PASS - Right size and segment"
+
+    - company_name: "Pavlok"
+      why_they_fit: "Wearable behavior change device, smaller hardware startup"
+      contact_name: "Maneesh Sethi"
+      contact_title: "CEO & Founder"
+      trigger_evidence: "Hardware startup, wearables"
+      validation_status: "PASS - Ideal startup size"
+
+    - company_name: "Whoop"
+      why_they_fit: "Fitness wearable, frequent trade show exhibitor"
+      contact_name: "Will Ahmed"
+      contact_title: "CEO & Founder"
+      trigger_evidence: "Fitness hardware, consumer electronics"
+      validation_status: "NEEDS REVIEW - Check recent funding/size"
+
+  go_no_go_decision:
+    pass_threshold: "6 of 8 samples must pass all criteria"
+    if_pass: "Proceed with full 400-contact pull"
+    if_fail: "Adjust filters: tighten employee count, focus on specific product categories"
+    common_filter_adjustments:
+      - "Filter to 10-150 employees only"
+      - "Exclude 'platform' companies"
+      - "Focus on specific categories: Smart Home, Fitness, Outdoor"
+      - "Prioritize first-time or smaller booth exhibitors"
+```
+
+---
+
 ## Campaign Metrics Targets
 
 - **List size:** 400 contacts

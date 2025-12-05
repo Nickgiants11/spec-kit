@@ -1,6 +1,7 @@
 {
   "client_name": "Rabbit Product Design",
-  "generated_at": "2024-12-05T22:45:00Z",
+  "generated_at": "2024-12-05T23:30:00Z",
+  "version": "1.1",
   "total_campaigns": 5,
   "estimated_total_list_size": 1900,
   "estimated_total_cost": "$95-190",
@@ -13,6 +14,16 @@
       "target_list_size": 500,
       "target_persona": "Founders/CEOs at hardware startups",
       "trigger": "Recent funding round (Seed to Series B)",
+      "strategic_rationale": {
+        "why_now": "60-90 day window post-funding where founders seek vendors to deploy capital. Hiring takes 3-6 months; they need help now.",
+        "why_this_persona": "Founders at <50 employees have full budget authority. They personally feel investor pressure for progress.",
+        "why_they_buy": "Time pressure + clear fit + reasonable cost = fast decision. No lengthy vendor evaluation at this stage."
+      },
+      "list_building": {
+        "primary_source": "AI Arc with funding_status=funded, funding_date_min=2024-06-01",
+        "key_filters": ["Funded last 6 months", "5-100 employees", "Hardware/IoT/Consumer Electronics"],
+        "sample_companies_validated": 8
+      },
       "ai_arc_filters": {
         "company_search": {
           "industries": ["Consumer Electronics", "Hardware", "IoT", "Smart Home", "Fitness", "Outdoor"],
@@ -67,6 +78,16 @@
       "target_list_size": 400,
       "target_persona": "VPs/Directors of Product/Engineering",
       "trigger": "Exhibiting at upcoming trade show",
+      "strategic_rationale": {
+        "why_now": "Immovable deadline creates urgency. CES is Jan 7-10, 2025. Companies MUST have something to show or waste booth investment.",
+        "why_this_persona": "VP/Director owns trade show deliverable. Their job is on the line if booth is empty or underwhelming.",
+        "why_they_buy": "Immovable deadline + working solution + reasonable cost = fast decision. No time for lengthy vendor evaluation."
+      },
+      "list_building": {
+        "primary_source": "CES Exhibitor Gallery, Outdoor Retailer exhibitor lists",
+        "key_filters": ["Confirmed exhibitor", "10-200 employees", "Show 2-5 months away"],
+        "sample_companies_validated": 8
+      },
       "ai_arc_filters": {
         "company_search": {
           "industries": ["Consumer Electronics", "Hardware", "IoT", "Smart Home", "Outdoor", "Fitness"],
@@ -118,6 +139,16 @@
       "target_list_size": 400,
       "target_persona": "VPs/Directors of Engineering",
       "trigger": "Multiple hardware engineering job postings",
+      "strategic_rationale": {
+        "why_now": "3+ job postings = capacity gap NOW. Hiring takes 3-6 months; they need bridge capacity immediately.",
+        "why_this_persona": "VP/Director owns hiring budget and project delivery. They personally feel every missed deadline.",
+        "why_they_buy": "Current pain + clear solution + no long-term commitment = tactical decision. Bridge until new hires onboard."
+      },
+      "list_building": {
+        "primary_source": "LinkedIn Jobs API - companies with 3+ hardware engineering roles",
+        "key_filters": ["3+ hardware roles open", "20-200 employees", "Recent postings (30 days)"],
+        "sample_companies_validated": 8
+      },
       "ai_arc_filters": {
         "company_search": {
           "industries": ["Consumer Electronics", "Hardware", "IoT", "Smart Home", "Fitness", "Outdoor", "Kitchen Appliances"],
@@ -170,6 +201,16 @@
       "target_list_size": 300,
       "target_persona": "Founders burned by other design firms",
       "trigger": "Public frustration with design firm or failed project",
+      "strategic_rationale": {
+        "why_now": "Fresh pain (30-60 days). They've already spent money, trust is broken, they're actively seeking alternatives.",
+        "why_this_persona": "Burned founders have full authority and proven budget. They just need a trustworthy vendor.",
+        "why_they_buy": "Fear of another failure is high, but sunk cost is higher. If Rabbit demonstrates credibility, they'll take the bet."
+      },
+      "list_building": {
+        "primary_source": "LinkedIn posts search - design firm frustration keywords",
+        "key_filters": ["Posted within 60 days", "Hardware company (not branding)", "Founder/CEO poster"],
+        "sample_companies_validated": 8
+      },
       "ai_arc_filters": {
         "company_search": {
           "industries": ["Consumer Electronics", "Hardware", "IoT", "Consumer Products", "Fitness", "Outdoor"],
@@ -216,6 +257,16 @@
       "target_list_size": 300,
       "target_persona": "Successfully funded crowdfunding creators",
       "trigger": "Successfully funded campaign, needs manufacturing",
+      "strategic_rationale": {
+        "why_now": "1-6 month window post-funding. They have money, backer pressure, and usually zero manufacturing experience.",
+        "why_this_persona": "Solo founders/tiny teams. Creator makes all decisions. No procurement, no committee.",
+        "why_they_buy": "Backer pressure + fear of public failure + single point of accountability = motivated buyer."
+      },
+      "list_building": {
+        "primary_source": "Kickstarter Technology/Hardware categories - $50K+ raised, ended 1-6 months ago",
+        "key_filters": ["Hardware only (not games/films)", "$50K+ raised", "Campaign ended 1-6 months"],
+        "sample_companies_validated": 8
+      },
       "ai_arc_filters": {
         "company_search": {
           "industries": ["Consumer Electronics", "Hardware", "IoT", "Outdoor", "Fitness", "Kitchen", "Travel"],
