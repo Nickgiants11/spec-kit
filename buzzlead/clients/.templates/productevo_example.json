@@ -1,0 +1,95 @@
+{
+  "client": {
+    "company_name": "ProductEVO",
+    "website": "https://productevo.com",
+    "industry": "Manufacturing / Product Sourcing",
+    "offer_summary": "Helps companies source and manufacture products overseas, specializing in China manufacturing partnerships",
+    "pricing_range": "Project-based, typically $10K-$100K+",
+    "guarantee": "Quality assurance on all manufactured goods",
+    "differentiators": [
+      "End-to-end manufacturing support from design to delivery",
+      "Established factory relationships in China",
+      "Quality control team on the ground",
+      "Scales with post-funding companies"
+    ]
+  },
+  "icp": {
+    "industries": [
+      "Consumer Products",
+      "DTC Brands",
+      "Hardware Startups",
+      "E-commerce"
+    ],
+    "company_sizes": {
+      "employee_range": "10-100",
+      "revenue_range": "$1M-$20M"
+    },
+    "job_titles": [
+      "Founder",
+      "CEO",
+      "VP of Operations",
+      "Head of Supply Chain",
+      "COO"
+    ],
+    "geographic_focus": [
+      "United States",
+      "Canada"
+    ],
+    "technologies": [
+      "Shopify",
+      "Amazon FBA",
+      "3PL integrations"
+    ],
+    "pain_points": [
+      "Need to scale manufacturing after raising funding",
+      "Current manufacturer can't keep up with demand",
+      "Quality issues with overseas suppliers",
+      "No visibility into production process",
+      "High manufacturing costs eating into margins"
+    ]
+  },
+  "proof": {
+    "case_studies": [
+      {
+        "customer_name": "GrowthBrand Co",
+        "customer_industry": "DTC Consumer Products",
+        "customer_size": "25 employees, $5M revenue",
+        "problem_faced": "Post-Series A, needed to 5x production capacity but existing manufacturer couldn't scale",
+        "solution_provided": "Transitioned to new factory partners in China with dedicated QC team",
+        "result_achieved": "Reduced manufacturing costs by 40%, increased capacity 5x",
+        "timeframe": "3 months",
+        "quote": "ProductEVO helped us scale production exactly when we needed it most.",
+        "one_liner": "We helped a DTC brand cut manufacturing costs by 40% and 5x capacity in 3 months post-funding."
+      },
+      {
+        "customer_name": "TechGadget Inc",
+        "customer_industry": "Hardware Startup",
+        "customer_size": "15 employees",
+        "problem_faced": "First hardware product, no manufacturing experience or contacts",
+        "solution_provided": "End-to-end product sourcing from prototype to mass production",
+        "result_achieved": "Launched product on time, 30% under budget",
+        "timeframe": "6 months",
+        "quote": "They made our first hardware launch possible.",
+        "one_liner": "We helped a hardware startup launch their first product 30% under budget."
+      }
+    ],
+    "results_achieved": [
+      "$90K profit generated in 9 months through cold email",
+      "Average 35% cost reduction for clients",
+      "95% on-time delivery rate"
+    ],
+    "client_logos": []
+  },
+  "sample_ideal_clients": [
+    "https://allbirds.com",
+    "https://away.com",
+    "https://casper.com",
+    "https://warbyparker.com",
+    "https://glossier.com"
+  ],
+  "dnc_domains": [
+    "alibaba.com",
+    "thomasnet.com",
+    "made-in-china.com"
+  ]
+}

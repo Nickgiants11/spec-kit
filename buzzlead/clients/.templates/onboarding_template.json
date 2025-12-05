@@ -1,0 +1,93 @@
+{
+  "client": {
+    "company_name": "Example Company",
+    "website": "https://example.com",
+    "industry": "B2B SaaS",
+    "offer_summary": "What the company sells - one sentence description of their core offering",
+    "pricing_range": "$5,000-$50,000/year",
+    "guarantee": "30-day money-back guarantee",
+    "differentiators": [
+      "Unique selling point 1",
+      "Unique selling point 2",
+      "Unique selling point 3"
+    ]
+  },
+  "icp": {
+    "industries": [
+      "Technology",
+      "Healthcare",
+      "Financial Services"
+    ],
+    "company_sizes": {
+      "employee_range": "50-500",
+      "revenue_range": "$5M-$100M"
+    },
+    "job_titles": [
+      "VP of Operations",
+      "Director of IT",
+      "Head of Engineering"
+    ],
+    "geographic_focus": [
+      "United States",
+      "Canada",
+      "United Kingdom"
+    ],
+    "technologies": [
+      "Salesforce",
+      "HubSpot",
+      "Slack"
+    ],
+    "pain_points": [
+      "Manual processes taking too much time",
+      "Difficulty scaling operations",
+      "High employee turnover due to repetitive tasks"
+    ]
+  },
+  "proof": {
+    "case_studies": [
+      {
+        "customer_name": "Acme Corp",
+        "customer_industry": "Manufacturing",
+        "customer_size": "200 employees",
+        "problem_faced": "Spending 40 hours/week on manual data entry",
+        "solution_provided": "Implemented automated workflow system",
+        "result_achieved": "Reduced manual work by 80%, saved $150K/year",
+        "timeframe": "3 months",
+        "quote": "This solution transformed how we operate.",
+        "one_liner": "We helped a manufacturing company save $150K/year by automating 80% of their manual data entry."
+      },
+      {
+        "customer_name": "TechStart Inc",
+        "customer_industry": "Technology",
+        "customer_size": "75 employees",
+        "problem_faced": "Couldn't scale operations without hiring",
+        "solution_provided": "Deployed automation for core workflows",
+        "result_achieved": "3x output without adding headcount",
+        "timeframe": "6 weeks",
+        "quote": "We scaled without the hiring nightmare.",
+        "one_liner": "We helped a tech startup 3x their output in 6 weeks without hiring anyone new."
+      }
+    ],
+    "results_achieved": [
+      "Average 40% reduction in operational costs",
+      "2-3x productivity improvement",
+      "ROI within 90 days for most clients"
+    ],
+    "client_logos": [
+      "https://example.com/logos/client1.png",
+      "https://example.com/logos/client2.png"
+    ]
+  },
+  "sample_ideal_clients": [
+    "https://idealcustomer1.com",
+    "https://idealcustomer2.com",
+    "https://idealcustomer3.com",
+    "https://idealcustomer4.com",
+    "https://idealcustomer5.com"
+  ],
+  "dnc_domains": [
+    "competitor1.com",
+    "competitor2.com",
+    "donotcontact.com"
+  ]
+}
