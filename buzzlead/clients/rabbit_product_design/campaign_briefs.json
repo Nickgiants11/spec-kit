@@ -1,0 +1,263 @@
+{
+  "client_name": "Rabbit Product Design",
+  "generated_at": "2024-12-05T22:45:00Z",
+  "total_campaigns": 5,
+  "estimated_total_list_size": 1900,
+  "estimated_total_cost": "$95-190",
+  "campaigns": [
+    {
+      "id": "campaign_1",
+      "name": "Post-Funding Hardware Startups",
+      "slug": "01_post_funding_trigger",
+      "priority": 1,
+      "target_list_size": 500,
+      "target_persona": "Founders/CEOs at hardware startups",
+      "trigger": "Recent funding round (Seed to Series B)",
+      "ai_arc_filters": {
+        "company_search": {
+          "industries": ["Consumer Electronics", "Hardware", "IoT", "Smart Home", "Fitness", "Outdoor"],
+          "employee_count_min": 5,
+          "employee_count_max": 100,
+          "revenue_min": "0",
+          "revenue_max": "25M",
+          "locations": ["United States"],
+          "keywords": ["hardware", "product", "IoT", "consumer electronics", "smart home", "connected device"],
+          "exclude_keywords": ["software only", "SaaS", "app", "automotive", "aerospace", "defense"],
+          "funding_status": "funded",
+          "funding_date_min": "2024-06-01"
+        },
+        "people_search": {
+          "title_keywords": ["CEO", "Founder", "Co-Founder", "CTO", "Chief Product Officer"],
+          "seniority_levels": ["C-Suite", "Founder"],
+          "departments": ["Executive", "Engineering", "Product"],
+          "profile_keywords": ["hardware", "product development", "startup"]
+        },
+        "export_options": {
+          "include_email": true,
+          "email_confidence_min": 0.8,
+          "max_results": 500
+        }
+      },
+      "enrichment_sources": [
+        {
+          "source": "google_news",
+          "tool": "serperdev_news",
+          "query": "\"{{company_name}}\" (funding OR raised OR Series)",
+          "extract": ["funding_amount", "funding_date", "investors"]
+        },
+        {
+          "source": "company_homepage",
+          "tool": "jina",
+          "extract": ["company_description", "product_type", "team_size_signals"]
+        },
+        {
+          "source": "crunchbase",
+          "tool": "serperdev",
+          "query": "site:crunchbase.com \"{{company_name}}\""
+        }
+      ],
+      "copywriting_templates": ["Classic Twist", "Direct Report", "Storytelling"],
+      "proof_point": "Credibility fallback: 1,000+ products, 27 years avg experience"
+    },
+    {
+      "id": "campaign_2",
+      "name": "CES & Trade Show Deadline",
+      "slug": "02_ces_trade_show",
+      "priority": 2,
+      "target_list_size": 400,
+      "target_persona": "VPs/Directors of Product/Engineering",
+      "trigger": "Exhibiting at upcoming trade show",
+      "ai_arc_filters": {
+        "company_search": {
+          "industries": ["Consumer Electronics", "Hardware", "IoT", "Smart Home", "Outdoor", "Fitness"],
+          "employee_count_min": 10,
+          "employee_count_max": 200,
+          "revenue_min": "1M",
+          "revenue_max": "50M",
+          "locations": ["United States"],
+          "keywords": ["consumer electronics", "hardware", "product", "smart home", "outdoor", "fitness"],
+          "exclude_keywords": ["software", "SaaS", "automotive", "aerospace", "defense"]
+        },
+        "people_search": {
+          "title_keywords": ["VP Product", "VP Engineering", "Director Product", "Director Engineering", "Head of Innovation", "Head of R&D", "CPO"],
+          "seniority_levels": ["VP", "Director"],
+          "departments": ["Product", "Engineering", "R&D", "Innovation"],
+          "profile_keywords": ["product development", "hardware", "prototype"]
+        },
+        "export_options": {
+          "include_email": true,
+          "email_confidence_min": 0.8,
+          "max_results": 400
+        }
+      },
+      "enrichment_sources": [
+        {
+          "source": "exhibitor_list",
+          "tool": "manual_scrape",
+          "extract": ["company_name", "booth_number", "product_category"]
+        },
+        {
+          "source": "company_homepage",
+          "tool": "jina",
+          "extract": ["company_description", "current_products"]
+        },
+        {
+          "source": "google_news",
+          "tool": "serperdev_news",
+          "query": "\"{{company_name}}\" (CES OR launch OR new product)"
+        }
+      ],
+      "copywriting_templates": ["Classic Twist", "Direct Report", "Cryptic Idea"],
+      "proof_point": "Credibility fallback: Production-grade prototypes in 1-2 weeks"
+    },
+    {
+      "id": "campaign_3",
+      "name": "Hiring Surge Capacity Gap",
+      "slug": "03_hiring_surge",
+      "priority": 3,
+      "target_list_size": 400,
+      "target_persona": "VPs/Directors of Engineering",
+      "trigger": "Multiple hardware engineering job postings",
+      "ai_arc_filters": {
+        "company_search": {
+          "industries": ["Consumer Electronics", "Hardware", "IoT", "Smart Home", "Fitness", "Outdoor", "Kitchen Appliances"],
+          "employee_count_min": 20,
+          "employee_count_max": 200,
+          "revenue_min": "5M",
+          "revenue_max": "50M",
+          "locations": ["United States"],
+          "keywords": ["hardware", "product", "consumer electronics", "IoT"],
+          "exclude_keywords": ["software", "SaaS", "automotive", "aerospace", "defense"],
+          "hiring_status": "actively_hiring"
+        },
+        "people_search": {
+          "title_keywords": ["VP Engineering", "VP Product", "Director Engineering", "Director Product", "Head of Hardware", "Head of R&D"],
+          "seniority_levels": ["VP", "Director"],
+          "departments": ["Engineering", "Product", "R&D"],
+          "profile_keywords": ["hardware", "mechanical", "product development"]
+        },
+        "export_options": {
+          "include_email": true,
+          "email_confidence_min": 0.8,
+          "max_results": 400
+        }
+      },
+      "enrichment_sources": [
+        {
+          "source": "linkedin_jobs",
+          "tool": "serperdev",
+          "query": "site:linkedin.com/jobs \"{{company_name}}\" (mechanical engineer OR hardware engineer)"
+        },
+        {
+          "source": "careers_page",
+          "tool": "spider",
+          "url_pattern": "/careers OR /jobs"
+        },
+        {
+          "source": "company_homepage",
+          "tool": "jina",
+          "extract": ["company_description", "product_types"]
+        }
+      ],
+      "copywriting_templates": ["Classic Twist", "Direct Report", "Internal Nudge"],
+      "proof_point": "Credibility fallback: 27 years avg experience, instant senior capacity"
+    },
+    {
+      "id": "campaign_4",
+      "name": "Design Firm Disaster Recovery",
+      "slug": "04_design_firm_recovery",
+      "priority": 4,
+      "target_list_size": 300,
+      "target_persona": "Founders burned by other design firms",
+      "trigger": "Public frustration with design firm or failed project",
+      "ai_arc_filters": {
+        "company_search": {
+          "industries": ["Consumer Electronics", "Hardware", "IoT", "Consumer Products", "Fitness", "Outdoor"],
+          "employee_count_min": 1,
+          "employee_count_max": 100,
+          "revenue_min": "0",
+          "revenue_max": "25M",
+          "locations": ["United States"],
+          "keywords": ["hardware", "product", "startup", "inventor", "prototype"],
+          "exclude_keywords": ["software", "SaaS", "automotive", "aerospace", "defense"]
+        },
+        "people_search": {
+          "title_keywords": ["CEO", "Founder", "Co-Founder", "CTO", "VP Product"],
+          "seniority_levels": ["C-Suite", "Founder", "VP"],
+          "departments": ["Executive", "Product", "Engineering"],
+          "profile_keywords": ["hardware", "product", "startup", "inventor"]
+        },
+        "export_options": {
+          "include_email": true,
+          "email_confidence_min": 0.8,
+          "max_results": 300
+        }
+      },
+      "enrichment_sources": [
+        {
+          "source": "linkedin_posts",
+          "tool": "serperdev",
+          "query": "site:linkedin.com/posts (\"design firm\" OR \"product development\") (frustrated OR disappointed OR failed)"
+        },
+        {
+          "source": "company_homepage",
+          "tool": "jina",
+          "extract": ["company_description", "product_type"]
+        }
+      ],
+      "copywriting_templates": ["Storytelling", "Poke the Bear", "Direct Report"],
+      "proof_point": "Credibility fallback: 50% less rework through DFM validation"
+    },
+    {
+      "id": "campaign_5",
+      "name": "Kickstarter/Indiegogo Graduated Founders",
+      "slug": "05_kickstarter_graduated",
+      "priority": 5,
+      "target_list_size": 300,
+      "target_persona": "Successfully funded crowdfunding creators",
+      "trigger": "Successfully funded campaign, needs manufacturing",
+      "ai_arc_filters": {
+        "company_search": {
+          "industries": ["Consumer Electronics", "Hardware", "IoT", "Outdoor", "Fitness", "Kitchen", "Travel"],
+          "employee_count_min": 1,
+          "employee_count_max": 20,
+          "revenue_min": "0",
+          "revenue_max": "5M",
+          "locations": ["United States"],
+          "keywords": ["kickstarter", "indiegogo", "crowdfunding", "hardware", "product"],
+          "exclude_keywords": ["software", "SaaS", "app", "game", "film"]
+        },
+        "people_search": {
+          "title_keywords": ["Founder", "Co-Founder", "CEO", "Creator", "Inventor"],
+          "seniority_levels": ["Founder", "C-Suite"],
+          "departments": ["Executive"],
+          "profile_keywords": ["kickstarter", "crowdfunding", "inventor", "hardware", "product"]
+        },
+        "export_options": {
+          "include_email": true,
+          "email_confidence_min": 0.7,
+          "max_results": 300
+        }
+      },
+      "enrichment_sources": [
+        {
+          "source": "kickstarter_campaign",
+          "tool": "jina",
+          "extract": ["funding_amount", "backer_count", "project_description"]
+        },
+        {
+          "source": "linkedin_profile",
+          "tool": "serperdev",
+          "query": "site:linkedin.com/in \"{{creator_name}}\" (kickstarter OR indiegogo OR founder)"
+        }
+      ],
+      "copywriting_templates": ["Storytelling", "Classic Twist", "Lead Magnet"],
+      "proof_point": "Credibility fallback: Same engineer from design through manufacturing"
+    }
+  ],
+  "exclusions": {
+    "industries": ["Software", "SaaS", "Apps", "Automotive", "Aerospace", "Defense", "Clothing", "Footwear", "Furniture"],
+    "competitors": ["Gembah", "Ologic", "Kickr Design", "Design 1st", "Lime Creative", "Prototype House", "Studio Red"],
+    "red_flags": ["Enterprise procurement", "AVL required", "Named insured requirement", "Defense contractor", "ITAR"]
+  }
+}
