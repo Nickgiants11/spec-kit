@@ -234,6 +234,144 @@ copywriting:
 }
 ```
 
+### 2H: Strategic Rationale (WHY)
+
+**Document why this campaign will work—the strategic thinking, not just the tactics.**
+
+```yaml
+strategic_rationale:
+  why_this_trigger:
+    timing_logic: "[Why NOW is the right moment - e.g., 'Post-funding creates a 60-90 day window where founders are actively seeking vendors to deploy capital']"
+    psychological_driver: "[What's happening in the buyer's head - e.g., 'Pressure to show progress to investors creates urgency to hire/outsource quickly']"
+    competitive_advantage: "[Why our client wins in this scenario - e.g., 'Speed of delivery beats agencies requiring 6-week discovery phases']"
+
+  why_this_persona:
+    decision_authority: "[Why this person can say yes - e.g., 'Founders at <50 employees make vendor decisions without procurement']"
+    pain_ownership: "[Why they feel the pain personally - e.g., 'VP Engineering is accountable for shipping on time; delays reflect on them']"
+    budget_access: "[Why they can pay - e.g., 'Post-Series A companies typically have $50K-200K allocated for external product development']"
+
+  why_this_message:
+    hook_psychology: "[What makes the hook work - e.g., 'Referencing specific funding news proves research and earns attention']"
+    proof_selection: "[Why this proof point resonates - e.g., 'Time-to-delivery metric matters most to deadline-driven buyers']"
+    objection_preemption: "[What objection does this message preempt - e.g., 'Mentioning senior engineers addresses fear of getting junior resources']"
+
+  expected_conversion_logic:
+    why_they_reply: "[The specific reason they'll respond - e.g., 'They're actively looking for this exact solution']"
+    why_they_meet: "[What makes the meeting worthwhile - e.g., 'Concrete case study offers actionable insight they can use regardless']"
+    why_they_buy: "[The path from meeting to deal - e.g., 'Time pressure + clear fit + reasonable cost = fast decision']"
+```
+
+### 2I: List Building Methodology (HOW)
+
+**Step-by-step instructions for Agent 3 to construct this exact list.**
+
+```yaml
+list_building_methodology:
+  step_1_source_identification:
+    primary_source: "[Main database - e.g., 'AI Arc company search']"
+    secondary_sources:
+      - "[Backup source 1 - e.g., 'Crunchbase funding announcements']"
+      - "[Backup source 2 - e.g., 'LinkedIn Sales Navigator saved search']"
+    manual_sources:
+      - "[Any manual research needed - e.g., 'CES exhibitor list PDF export']"
+
+  step_2_company_filtering:
+    must_have_criteria:
+      - "[Non-negotiable filter 1 - e.g., 'Funded in last 6 months (Seed to Series B)']"
+      - "[Non-negotiable filter 2 - e.g., 'US-based headquarters']"
+      - "[Non-negotiable filter 3 - e.g., 'Hardware/IoT/Consumer Electronics industry tag']"
+    nice_to_have_criteria:
+      - "[Bonus signal 1 - e.g., 'Active job postings for engineers']"
+      - "[Bonus signal 2 - e.g., 'Recently mentioned in tech press']"
+    exclusion_criteria:
+      - "[Must exclude 1 - e.g., 'Enterprise companies (>500 employees)']"
+      - "[Must exclude 2 - e.g., 'Automotive, aerospace, defense industries']"
+      - "[Must exclude 3 - e.g., 'Companies on client DNC list']"
+
+  step_3_person_identification:
+    target_titles_priority:
+      tier_1: ["CEO", "Founder", "Co-Founder"]
+      tier_2: ["CTO", "VP Product", "VP Engineering"]
+      tier_3: ["Director of Product", "Director of Engineering", "Head of R&D"]
+    max_contacts_per_company: 2
+    title_selection_logic: "[How to pick - e.g., 'Prefer Tier 1; fall back to Tier 2 only if no Tier 1 available']"
+
+  step_4_data_validation:
+    email_requirements:
+      minimum_confidence: 0.8
+      required_format: "business email (not personal)"
+      fallback_action: "[What to do if no email - e.g., 'Flag for LinkedIn outreach instead']"
+    company_validation:
+      verify_website_live: true
+      verify_company_active: true
+      recency_check: "[How recent - e.g., 'Company shows activity in last 6 months']"
+
+  step_5_enrichment_sequence:
+    order_of_operations:
+      - "[First enrichment - e.g., 'Pull company homepage with Jina for context']"
+      - "[Second enrichment - e.g., 'Check Google News for recent funding/press']"
+      - "[Third enrichment - e.g., 'Verify LinkedIn profile is active']"
+    cost_optimization: "[How to minimize spend - e.g., 'Only enrich companies that pass validation']"
+
+  step_6_deduplication:
+    dedupe_against:
+      - "Client DNC list"
+      - "Previous campaign exports"
+      - "Other campaigns in this batch (if running multiple)"
+    merge_logic: "[How to handle dupes - e.g., 'Keep in highest-priority campaign only']"
+```
+
+### 2J: Sample Validation (Before Full Pull)
+
+**Before pulling the full list, validate with 5-10 sample companies.**
+
+```yaml
+sample_validation:
+  purpose: "Test that filters actually return relevant companies before spending money on full pull"
+
+  sample_size: 5-10 companies
+
+  validation_checklist:
+    - question: "Does this company actually fit our ICP?"
+      pass_criteria: "[What makes it a pass - e.g., 'Sells physical hardware products to consumers']"
+      fail_example: "[What would fail - e.g., 'Pure software company with no hardware']"
+
+    - question: "Is the trigger signal real and recent?"
+      pass_criteria: "[What makes it a pass - e.g., 'Funding announced within last 90 days']"
+      fail_example: "[What would fail - e.g., 'Funding was 2 years ago']"
+
+    - question: "Is the contact the right person?"
+      pass_criteria: "[What makes it a pass - e.g., 'Title shows decision-making authority']"
+      fail_example: "[What would fail - e.g., 'Intern or entry-level role']"
+
+    - question: "Can we actually reach them?"
+      pass_criteria: "[What makes it a pass - e.g., 'Business email with 80%+ confidence']"
+      fail_example: "[What would fail - e.g., 'Only personal Gmail available']"
+
+    - question: "Would our client want this lead?"
+      pass_criteria: "[What makes it a pass - e.g., 'Client would be excited to see this company']"
+      fail_example: "[What would fail - e.g., 'Too small, too large, wrong industry']"
+
+  sample_companies:
+    - company_name: "[Example Company 1]"
+      why_they_fit: "[1-2 sentence explanation]"
+      contact_name: "[Name]"
+      contact_title: "[Title]"
+      trigger_evidence: "[What signal we found]"
+      validation_status: "PASS | FAIL | NEEDS REVIEW"
+
+    # Repeat for 5-10 companies
+
+  go_no_go_decision:
+    pass_threshold: "8 of 10 samples must pass all criteria"
+    if_pass: "Proceed with full list pull"
+    if_fail: "Adjust filters and re-sample before full pull"
+    common_filter_adjustments:
+      - "[Adjustment 1 - e.g., 'Tighten employee count range']"
+      - "[Adjustment 2 - e.g., 'Add more exclusion keywords']"
+      - "[Adjustment 3 - e.g., 'Change funding recency window']"
+```
+
 ---
 
 ## STEP 3: OUTPUT FORMAT
@@ -277,6 +415,18 @@ Status: Draft - Pending Approval
 ## AI Arc Filters (For Agent 3)
 
 [JSON block from 2G]
+
+## Strategic Rationale (For Agent 3)
+
+[YAML block from 2H - WHY this campaign will work]
+
+## List Building Methodology (For Agent 3)
+
+[YAML block from 2I - HOW to construct the list]
+
+## Sample Validation (For Agent 3)
+
+[YAML block from 2J - Sample companies to validate before full pull]
 
 ---
 
@@ -349,6 +499,20 @@ For Agent 3 to consume programmatically:
 |----------|-----------------|------|------------|
 | [Name] | Poke the Bear | Founder-to-founder | Challenge their current approach |
 | [Name] | Classic Twist | Peer | Reference their growth |
+
+### Strategic Rationale (WHY These Campaigns)
+
+| Campaign | Why Now | Why This Persona | Why They'll Buy |
+|----------|---------|------------------|-----------------|
+| [Name] | [Timing logic] | [Decision authority] | [Path to purchase] |
+| [Name] | [Timing logic] | [Decision authority] | [Path to purchase] |
+
+### List Building Ready (HOW)
+
+| Campaign | Primary Source | Key Filters | Validation Status |
+|----------|---------------|-------------|-------------------|
+| [Name] | AI Arc | [Key criteria] | [X] sample companies identified |
+| [Name] | AI Arc + Crunchbase | [Key criteria] | [X] sample companies identified |
 
 ### Case Study Coverage
 
@@ -463,4 +627,9 @@ For a 500-contact campaign: ~$25-50 total
 
 ## VERSION HISTORY
 
+- v1.1 (Dec 2024): Enhanced with strategic depth
+  - Added 2H: Strategic Rationale (WHY) - Documents timing logic, persona psychology, conversion path
+  - Added 2I: List Building Methodology (HOW) - Step-by-step instructions for Agent 3
+  - Added 2J: Sample Validation - 5-10 sample companies to validate before full pull
+  - Updated human checkpoint to show strategic rationale summary
 - v1.0 (Dec 2024): Initial release
