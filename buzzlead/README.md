@@ -1,221 +1,91 @@
 # Buzzlead GTM Automation System
 
-A comprehensive B2B lead generation research and campaign automation system. This system automates the process of researching new clients, generating campaign strategies, building lead lists, and creating personalized cold email copy.
+A conversational B2B lead generation system that runs through Claude Code. No Python scripts, no terminal commands - just directives that Claude Code follows.
+
+## How It Works
+
+1. You trigger an agent (e.g., `/deep-research`)
+2. You paste the client onboarding data
+3. Claude Code reads the directive and executes each step
+4. Claude Code makes API calls, scrapes websites, synthesizes research
+5. Claude Code outputs the results and waits for your approval
 
 ## Agent Pipeline
 
-| Agent | Name | Description | Status |
-|-------|------|-------------|--------|
-| 1 | Deep Research | Comprehensive client and market research | Implemented |
-| 2 | GTM Strategy Generator | Campaign brief creation with AI Arc filters | Planned |
-| 3 | List Builder | Lead list generation via AI Arc | Planned |
-| 4 | Data Enrichment | Contact enrichment and verification | Planned |
-| 5 | Copy Generator | Personalized email copy creation | Planned |
+| Agent | Trigger | Description | Status |
+|-------|---------|-------------|--------|
+| 1 | `/deep-research` | Comprehensive client and market research | Ready |
+| 2 | `/gtm-strategy` | Campaign brief creation | Planned |
+| 3 | `/build-list` | Lead list generation | Planned |
+| 4 | `/enrich-data` | Contact enrichment | Planned |
+| 5 | `/generate-copy` | Email copy creation | Planned |
 
 ## Quick Start
 
-### 1. Setup API Keys
+### Run Agent 1: Deep Research
 
-```bash
-# Copy the example env file
-cp buzzlead/secrets/.env.example buzzlead/secrets/.env
+```
+/deep-research
 
-# Edit with your API keys
-nano buzzlead/secrets/.env
+Client: ProductEVO
+Website: https://productevo.com
+Industry: Manufacturing / Product Sourcing
+What they sell: Helps companies source and manufacture products overseas
+Target industries: DTC Brands, Hardware Startups, E-commerce
+Target titles: Founder, CEO, VP Operations, Head of Supply Chain
+Company size: 10-100 employees
+Pain points: Need to scale manufacturing, quality issues with suppliers, high costs
+Sample ideal clients: https://allbirds.com, https://away.com, https://casper.com
 ```
 
-Required API keys:
-
-- `JINA_API_KEY` - For homepage scraping
-- `SPIDER_API_KEY` - For deep page scraping
-- `SERPER_DEV_API_KEY` - For Google search/news
-- `OPENROUTER_API_KEY` - For LLM synthesis
-
-### 2. Install Dependencies
-
-```bash
-pip install requests python-dotenv
-```
-
-### 3. Run Agent 1 (Deep Research)
-
-**Option A: With onboarding file**
-
-```bash
-python -m buzzlead.run_agent1 --client "ProductEVO" --onboarding buzzlead/clients/.templates/productevo_example.json
-```
-
-**Option B: Interactive mode**
-
-```bash
-python -m buzzlead.run_agent1 --interactive
-```
-
-**Option C: Skip synthesis (for testing)**
-
-```bash
-python -m buzzlead.run_agent1 --client "TestCo" --onboarding data.json --skip-synthesis
-```
+Claude Code will then:
+1. Scrape the client website
+2. Search for news and market context
+3. Analyze sample ideal clients
+4. Extract case studies
+5. Synthesize into an intelligence document
+6. Present a summary for your approval
 
 ## Directory Structure
 
 ```
 buzzlead/
-├── agents/                    # Agent implementations
-│   ├── __init__.py
-│   └── agent1_deep_research.py
-├── clients/                   # Client-specific data and outputs
-│   ├── .templates/           # Onboarding templates
-│   │   ├── onboarding_template.json
-│   │   └── productevo_example.json
-│   └── [client_name]/        # Generated per client
+├── directives/           # Agent instruction files
+│   └── AGENT_1_DEEP_RESEARCH.md
+├── clients/              # Client data and outputs
+│   ├── .templates/       # Onboarding examples
+│   └── [client_name]/    # Generated per client
 │       ├── intelligence_doc.md
-│       ├── intelligence_doc.json
-│       ├── client_case_studies.md
-│       └── cost_log.json
-├── knowledge/                 # Knowledge base files
+│       └── client_case_studies.md
+├── knowledge/            # Reference materials
 │   ├── buzzlead_proof_points.md
 │   └── copywriting_templates.md
-├── secrets/                   # API keys (gitignored)
-│   ├── .env.example
-│   └── .env                   # Your actual keys (create this)
-├── utils/                     # Shared utilities
-│   ├── __init__.py
-│   ├── api_clients.py
-│   ├── config.py
-│   └── cost_tracker.py
-├── __init__.py
-├── run_agent1.py              # CLI entry point
+├── secrets/              # API keys (gitignored)
+│   └── api_keys.env
 └── README.md
 ```
 
-## Agent 1: Deep Research
+## APIs Used
 
-### Trigger
+- **Jina** - Homepage scraping (~$0.001/call)
+- **Spider** - Deep page scraping (~$0.01/page)
+- **SerperDev** - Google search/news (~$0.001/search)
+- **OpenRouter** - GPT-5.1 synthesis (~$0.02/call)
 
-```
-/deep-research [client_name]
-```
-
-### Inputs Required
-
-1. **Client Onboarding Form** (JSON) containing:
-   - Company name and website
-   - What they sell (offer description)
-   - Target industries
-   - Target job titles/personas
-   - Company size ranges
-   - Geographic focus
-   - Pain points they solve
-   - Case studies/results achieved
-   - Sample ideal client URLs (5-10)
-   - DNC domains list
-
-### Workflow
-
-1. **Parse Onboarding Form** - Extract and structure client data
-2. **Scrape Client Website** - Homepage via Jina, key pages via Spider
-3. **Research Client Context** - News and market research via SerperDev
-4. **Analyze Sample Clients** - Scrape and analyze ideal customer profiles
-5. **Extract Case Studies** - Structure proof points for cold emails
-6. **Synthesize Research** - Use LLM to create intelligence document
-7. **Human Checkpoint** - Present summary for approval
-
-### Outputs
-
-| File | Description |
-|------|-------------|
-| `intelligence_doc.md` | Full narrative intelligence document |
-| `intelligence_doc.json` | Structured data for Agent 2 |
-| `client_case_studies.md` | Case studies formatted for cold emails |
-| `cost_log.json` | API usage and cost tracking |
-
-### Cost Estimates
-
-| API | Cost per 1,000 contacts |
-|-----|------------------------|
-| Jina | ~$1 |
-| Spider | ~$10 |
-| SerperDev | ~$1-2 |
-| OpenRouter | ~$15-20 |
-
-## Onboarding Form Schema
-
-See `buzzlead/clients/.templates/onboarding_template.json` for the full schema.
-
-Minimum required fields:
-
-```json
-{
-  "client": {
-    "company_name": "Required",
-    "website": "Required"
-  }
-}
-```
+Estimated cost per client: **$2-5**
 
 ## Human Checkpoints
 
-Agent 1 includes a human checkpoint after research synthesis:
+Each agent stops for approval before proceeding:
 
 ```
-============================================
-HUMAN CHECKPOINT #1: Research Review
-============================================
+## Deep Research Complete: ProductEVO
 
-CLIENT: ProductEVO
-DATA QUALITY SCORE: 8/10
+### Top 3 Campaign Angles
+1. Post-Funding Trigger - targeting Founders
+2. Scale Pain - targeting VPs of Operations
+3. Cost Reduction - targeting Supply Chain leads
 
-TOP 3 RECOMMENDED CAMPAIGN ANGLES:
-1. Post-Funding Trigger
-2. Scale Pain
-3. Cost Reduction
-
-DECISION REQUIRED:
-[ ] APPROVE - Proceed to Agent 2
-[ ] REVISE - Make adjustments
-[ ] REJECT - Gather more information
-============================================
+### Ready for Agent 2?
+Type "approved" to proceed, or provide feedback.
 ```
-
-## Integration with Agent 2
-
-After approval, pass to Agent 2:
-
-```
-/gtm-strategy [client_name]
-```
-
-Agent 2 reads:
-
-- `intelligence_doc.json`
-- `client_case_studies.md`
-- `knowledge/copywriting_templates.md`
-
-## Error Handling
-
-- **Jina fails**: Falls back to Spider for homepage
-- **Spider fails**: Logs error, continues with available data
-- **SerperDev fails**: Retries once, then skips query
-- **OpenRouter fails**: Retries with lower max_tokens
-
-Partial results are always saved - no data is lost due to single API failures.
-
-## Development
-
-### Running Tests
-
-```bash
-# Test without API calls
-python -m buzzlead.run_agent1 --client "Test" --onboarding test.json --skip-synthesis
-```
-
-### Adding New Agents
-
-1. Create agent file in `buzzlead/agents/`
-2. Add to `buzzlead/agents/__init__.py`
-3. Create CLI runner in `buzzlead/run_agentN.py`
-
-## Version History
-
-- **v1.0** (Dec 2024): Initial release with Agent 1 (Deep Research)
