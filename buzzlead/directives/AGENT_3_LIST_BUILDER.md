@@ -1,5 +1,6 @@
 # AGENT 3: LIST BUILDER
 # Trigger: /list-build [client_name] or "approved" after Agent 2
+# Version: 2.0 (Audience-Builder Integration)
 
 ## HOW TO USE THIS AGENT
 
@@ -18,10 +19,29 @@ or
 
 You are Agent 3 in the Buzzlead GTM Automation pipeline. Your job is to:
 1. Read the approved campaign briefs from Agent 2
-2. Execute list pulls using AI Arc API (or alternative sources)
-3. Apply quality scoring to prioritize leads
-4. Present a sample for human validation
-5. After approval, export full lists for enrichment
+2. Create request files for the audience-builder repo
+3. Commit and push to trigger GitHub Action API calls
+4. Apply quality scoring to prioritize leads
+5. Present a sample for human validation
+6. After approval, pull full lists for enrichment
+
+---
+
+## AUDIENCE-BUILDER INTEGRATION
+
+Agent 3 uses the `audience-builder` GitHub repo to pull leads from AI Arc:
+
+**Repo Location:** `/home/user/spec-kit/audience-builder`
+**How It Works:**
+1. Create JSON request file in `audience-builder/requests/` folder
+2. Commit and push to the repo
+3. GitHub Action automatically calls AI Arc API
+4. Results appear in `audience-builder/results/` as CSV (2-3 minutes)
+
+**API Details:**
+- Endpoint: `https://api.ai-ark.com/api/developer-portal/v1/people`
+- Auth: `X-TOKEN` header (stored in GitHub Secrets)
+- Max results per request: 100
 
 ---
 
@@ -45,31 +65,91 @@ Confirm you have for each campaign:
 
 **CRITICAL: Always pull a sample first before full list.**
 
-For each campaign, execute AI Arc search with `max_results: 50`:
+For each campaign, create a request file in the audience-builder repo:
 
-```python
-# Pseudocode for AI Arc API call
-ai_arc_request = {
-    "company_search": {
-        "industries": campaign.ai_arc_filters.company_search.industries,
-        "employee_count_min": campaign.ai_arc_filters.company_search.employee_count_min,
-        "employee_count_max": campaign.ai_arc_filters.company_search.employee_count_max,
-        "locations": campaign.ai_arc_filters.company_search.locations,
-        "keywords": campaign.ai_arc_filters.company_search.keywords,
-        "exclude_keywords": campaign.ai_arc_filters.company_search.exclude_keywords,
-        # Additional filters from methodology
-    },
-    "people_search": {
-        "title_keywords": campaign.ai_arc_filters.people_search.title_keywords,
-        "seniority_levels": campaign.ai_arc_filters.people_search.seniority_levels,
-        "departments": campaign.ai_arc_filters.people_search.departments,
-    },
-    "export_options": {
-        "include_email": true,
-        "email_confidence_min": 0.8,
-        "max_results": 50  # SAMPLE ONLY
-    }
+**File Location:** `/home/user/spec-kit/audience-builder/requests/[client]-[campaign-slug]-sample.json`
+
+**Request Format:**
+```json
+{
+  "source": "ai_arc",
+  "audience_name": "[client]-[campaign-slug]-sample",
+  "filters": {
+    "seniority": ["founder", "c_suite"],
+    "department": ["executive", "engineering", "product"],
+    "industries": ["Consumer Electronics", "Hardware", "IoT", "Smart Home"],
+    "company_size": "11-50",
+    "location": "United States",
+    "keywords": ["hardware", "product", "startup"]
+  },
+  "limit": 50,
+  "requested_by": "Agent 3",
+  "notes": "Campaign: [Campaign Name] - Sample Pull"
 }
+```
+
+### Available Filters
+
+| Filter | Type | Example Values |
+|--------|------|----------------|
+| `seniority` | Array | `["founder", "c_suite", "vp", "director", "manager"]` |
+| `department` | Array | `["executive", "engineering", "product", "sales", "marketing"]` |
+| `industries` | Array | `["Consumer Electronics", "Hardware", "IoT", "Smart Home", "Fitness"]` |
+| `company_size` | String | `"1-10"`, `"11-50"`, `"51-200"`, `"201-500"`, `"501-1000"` |
+| `location` | String/Array | `"United States"` or `["United States", "Canada"]` |
+| `keywords` | Array | `["hardware", "startup", "IoT"]` (any match) |
+| `skills` | Array | `["product development", "mechanical engineering"]` |
+| `technologies` | Array | `["AWS", "Shopify"]` |
+
+### Filter Mapping from Campaign Briefs
+
+Map the campaign brief's `ai_arc_filters` to audience-builder format:
+
+```yaml
+campaign_briefs.json → audience-builder request
+────────────────────────────────────────────────
+people_search.seniority_levels: ["C-Suite", "Founder"]
+  → seniority: ["c_suite", "founder"]
+
+people_search.departments: ["Executive", "Engineering"]
+  → department: ["executive", "engineering"]
+
+company_search.industries: ["Consumer Electronics", "Hardware"]
+  → industries: ["Consumer Electronics", "Hardware"]
+
+company_search.employee_count_min/max: 5-100
+  → company_size: "1-100" (use closest range)
+
+company_search.locations: ["United States"]
+  → location: "United States"
+
+company_search.keywords: ["hardware", "product"]
+  → keywords: ["hardware", "product"]
+```
+
+### 2A-2: Commit and Push Request
+
+After creating the request file:
+
+```bash
+cd /home/user/spec-kit/audience-builder
+git add requests/[client]-[campaign-slug]-sample.json
+git commit -m "Request: [Client] [Campaign] sample pull"
+git push origin main
+```
+
+### 2A-3: Wait for Results
+
+- GitHub Action runs automatically on push
+- Results appear in `audience-builder/results/` within 2-3 minutes
+- Check for file: `results/[audience-name]-[timestamp].csv`
+
+### 2A-4: Copy Results to Client Folder
+
+Once results are available:
+```bash
+cp /home/user/spec-kit/audience-builder/results/[latest-result].csv \
+   /home/user/spec-kit/buzzlead/clients/[client_name]/lists/[campaign_slug]_sample.csv
 ```
 
 ### 2B: Enrich Sample with Trigger Signals
@@ -258,18 +338,45 @@ exclusion_checks:
 
 Once human approves samples, execute full list pull:
 
-### 4A: Pull Full Lists
+### 4A: Pull Full Lists via Audience-Builder
 
-```python
-# Full pull with target list size
-ai_arc_request = {
-    # Same filters as sample
-    "export_options": {
-        "include_email": true,
-        "email_confidence_min": 0.8,
-        "max_results": campaign.target_list_size  # Full amount
-    }
+Create full pull request file (same filters as sample, higher limit):
+
+**File Location:** `/home/user/spec-kit/audience-builder/requests/[client]-[campaign-slug]-full.json`
+
+```json
+{
+  "source": "ai_arc",
+  "audience_name": "[client]-[campaign-slug]-full",
+  "filters": {
+    // Same filters as sample request
+  },
+  "limit": 500,  // Target list size from campaign brief
+  "requested_by": "Agent 3",
+  "notes": "Campaign: [Campaign Name] - Full Pull (approved)"
 }
+```
+
+**Note:** AI Arc max is 100 per request. For lists >100:
+- Create multiple requests with different filter combinations
+- Or paginate using offset (if supported)
+- Or supplement with manual research for trigger signals
+
+### 4A-2: Commit and Wait for Results
+
+```bash
+cd /home/user/spec-kit/audience-builder
+git add requests/[client]-[campaign-slug]-full.json
+git commit -m "Request: [Client] [Campaign] full pull"
+git push origin main
+# Wait 2-3 minutes for GitHub Action
+```
+
+### 4A-3: Copy Results to Client Folder
+
+```bash
+cp /home/user/spec-kit/audience-builder/results/[latest-result].csv \
+   /home/user/spec-kit/buzzlead/clients/[client_name]/lists/[campaign_slug]_leads.csv
 ```
 
 ### 4B: Final Deduplication
@@ -395,48 +502,101 @@ Or type "/enrich [client_name]" to trigger Agent 4 directly.
 
 ---
 
-## API INTEGRATIONS
+## AUDIENCE-BUILDER REFERENCE
 
-### AI Arc API
+### Repository Structure
+
+```
+/home/user/spec-kit/audience-builder/
+├── requests/           # Create new request files here
+│   └── [name].json     # JSON request triggers GitHub Action
+├── results/            # CSV results appear here
+│   └── [name]-[timestamp].csv
+├── scripts/
+│   └── process_request.py  # API processing script
+└── .github/workflows/
+    └── process-audience.yml  # GitHub Action workflow
+```
+
+### AI Arc API (via Audience-Builder)
 
 ```yaml
 ai_arc:
-  base_url: "https://api.aiarc.io/v1"
-  auth: "Bearer {{AI_ARC_API_KEY}}"
+  base_url: "https://api.ai-ark.com/api/developer-portal/v1"
+  auth: "X-TOKEN: {{AI_ARC_API_KEY}}"  # Stored in GitHub Secrets
 
-  endpoints:
-    company_search: "/companies/search"
-    people_search: "/people/search"
-    export: "/export"
+  endpoint: "/people"
+  method: POST
 
   rate_limits:
-    requests_per_minute: 60
-    max_results_per_request: 1000
+    max_results_per_request: 100
 
   cost:
-    per_company: $0.005
-    per_contact: $0.01
-    per_email_verification: $0.005
+    per_1000_contacts: ~$5-10
 ```
 
-### Alternative Sources (If AI Arc Insufficient)
+### Request File Schema
+
+```json
+{
+  "source": "ai_arc",
+  "audience_name": "descriptive-slug-name",
+  "filters": {
+    "seniority": ["founder", "c_suite", "vp", "director"],
+    "department": ["executive", "engineering", "product"],
+    "industries": ["Industry 1", "Industry 2"],
+    "company_size": "11-50",
+    "location": "United States",
+    "keywords": ["keyword1", "keyword2"],
+    "skills": ["skill1", "skill2"],
+    "technologies": ["tech1", "tech2"]
+  },
+  "limit": 100,
+  "requested_by": "Agent 3",
+  "notes": "Purpose of this list pull"
+}
+```
+
+### Output CSV Columns
+
+Results include these fields:
+- `id`, `identifier` - unique lead IDs
+- `profile_first_name`, `profile_last_name`, `profile_full_name`
+- `profile_headline`, `profile_title`
+- `link_linkedin` - LinkedIn profile URL
+- `location_country`, `location_state`, `location_city`
+- `industry`, `company_summary_name`
+- `department_seniority`, `skills`
+- `company_financial_*` - funding/revenue data (when available)
+
+### Workflow
+
+```
+1. Agent 3 creates request JSON in audience-builder/requests/
+2. Agent 3 commits and pushes to main branch
+3. GitHub Action detects new file and runs process_request.py
+4. Script calls AI Arc API with filters
+5. Results saved to audience-builder/results/[name]-[timestamp].csv
+6. Agent 3 copies results to buzzlead/clients/[client]/lists/
+```
+
+### Alternative Sources (Manual Fallback)
+
+If audience-builder returns insufficient results:
 
 ```yaml
-apollo:
-  use_when: "AI Arc returns < 50% of target list size"
-  base_url: "https://api.apollo.io/v1"
-  endpoints:
-    people_search: "/people/search"
-
-linkedin_sales_nav:
-  use_when: "Need specific persona/title searches"
-  method: "Manual export or Phantombuster"
+manual_research:
+  use_when: "AI Arc returns < 50% of target OR need trigger signals"
+  method: "WebSearch to find recent funding, CES exhibitors, job postings"
+  output: "Manually curated CSV with trigger signals"
 
 crunchbase:
-  use_when: "Funding trigger campaigns"
-  base_url: "https://api.crunchbase.com/v4"
-  endpoints:
-    funding_rounds: "/funding_rounds"
+  use_when: "Funding trigger campaigns need enrichment"
+  method: "WebSearch site:crunchbase.com queries"
+
+linkedin:
+  use_when: "Need to verify personas or find additional contacts"
+  method: "WebSearch site:linkedin.com/in queries"
 ```
 
 ---
@@ -528,4 +688,9 @@ cost_limits:
 
 ## VERSION HISTORY
 
+- v2.0 (Dec 2024): Integrated with audience-builder GitHub repo for API calls
+  - Replaced direct API calls with request file workflow
+  - Added filter mapping from campaign briefs to audience-builder format
+  - Updated API reference to correct AI Arc endpoint (api.ai-ark.com)
+  - Added output CSV column reference
 - v1.0 (Dec 2024): Initial release with sample validation, quality scoring, and cost controls
