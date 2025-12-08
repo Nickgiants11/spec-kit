@@ -45,7 +45,22 @@ Agent 3 uses the `audience-builder` GitHub repo to pull leads from AI Arc:
 
 ---
 
-## STEP 1: LOAD CAMPAIGN BRIEFS
+## STEP 1: LOAD CAMPAIGN BRIEFS AND FILTER REFERENCE
+
+### 1A: Read Filter Reference (MANDATORY)
+
+**BEFORE creating any request file, ALWAYS read:**
+```
+/buzzlead/directives/AI_ARC_FILTER_REFERENCE.md
+```
+
+This reference contains:
+- Valid seniority values (lowercase: "founder", "c_suite", etc.)
+- Valid industry names (exact strings only)
+- Valid company size formats
+- Industry mapping table (Campaign term → Valid AI Arc values)
+
+### 1B: Read Campaign Briefs
 
 Read these files:
 - `/buzzlead/clients/[client_name]/campaign_briefs.json`
@@ -103,29 +118,52 @@ For each campaign, create a request file in the audience-builder repo:
 
 ### Filter Mapping from Campaign Briefs
 
-Map the campaign brief's `ai_arc_filters` to audience-builder format:
+**CRITICAL: Use AI_ARC_FILTER_REFERENCE.md for all mappings**
+
+Map the campaign brief's `ai_arc_filters` to audience-builder format using ONLY valid values:
 
 ```yaml
 campaign_briefs.json → audience-builder request
 ────────────────────────────────────────────────
 people_search.seniority_levels: ["C-Suite", "Founder"]
-  → seniority: ["c_suite", "founder"]
+  → seniority: ["c_suite", "founder"]  # MUST be lowercase
 
 people_search.departments: ["Executive", "Engineering"]
-  → department: ["executive", "engineering"]
+  → department: ["executive", "engineering"]  # MUST be lowercase
 
-company_search.industries: ["Consumer Electronics", "Hardware"]
-  → industries: ["Consumer Electronics", "Hardware"]
+company_search.industries: ["Consumer Electronics", "Hardware", "IoT"]
+  → USE MAPPING TABLE from AI_ARC_FILTER_REFERENCE.md:
+    "Consumer Electronics" → "computers and electronics manufacturing"
+    "Hardware" → "computer hardware manufacturing"
+    "IoT" → use keywords: ["IoT", "connected device"]
 
 company_search.employee_count_min/max: 5-100
-  → company_size: "1-100" (use closest range)
+  → company_size: "1-100"  # MUST match exact format from reference
 
 company_search.locations: ["United States"]
-  → location: "United States"
-
-company_search.keywords: ["hardware", "product"]
-  → keywords: ["hardware", "product"]
+  → location: "United States"  # MUST be exact country name
 ```
+
+### Industry Mapping (from AI_ARC_FILTER_REFERENCE.md)
+
+| Campaign Says | Use These Valid Industries |
+|---------------|---------------------------|
+| "Hardware startups" | `"computer hardware manufacturing"`, `"computers and electronics manufacturing"` |
+| "Consumer Electronics" | `"computers and electronics manufacturing"`, `"appliances, electrical, and electronics manufacturing"` |
+| "IoT" | `"computers and electronics manufacturing"` + keywords `["IoT", "connected device"]` |
+| "Smart Home" | `"computers and electronics manufacturing"` + keywords `["smart home", "connected"]` |
+| "Fitness" | `"wellness and fitness services"` |
+| "Wearables" | `"computers and electronics manufacturing"` + keywords `["wearable", "fitness"]` |
+
+### Validation Checklist (BEFORE committing)
+
+Before creating any request file, verify against AI_ARC_FILTER_REFERENCE.md:
+
+- [ ] **Seniority**: All values lowercase (`"founder"`, `"c_suite"`, NOT `"Founder"`, `"C-Suite"`)
+- [ ] **Industries**: All values are EXACT matches from reference (NOT generic terms like "SaaS", "IoT", "Hardware")
+- [ ] **Company size**: Exact format from reference (`"1-100"`, `"11-50"`, etc.)
+- [ ] **Location**: Proper country name (`"United States"`, NOT `"USA"`, `"US"`)
+- [ ] **Keywords**: Simple single words, not phrases
 
 ### 2A-2: Commit and Push Request
 
@@ -688,6 +726,11 @@ cost_limits:
 
 ## VERSION HISTORY
 
+- v2.1 (Dec 2024): Added mandatory filter validation
+  - MUST read AI_ARC_FILTER_REFERENCE.md before creating requests
+  - Added industry mapping table with valid AI Arc values
+  - Added validation checklist (seniority lowercase, exact industry names, etc.)
+  - Generic terms like "SaaS", "IoT", "Hardware" are NOT valid - must use exact API values
 - v2.0 (Dec 2024): Integrated with audience-builder GitHub repo for API calls
   - Replaced direct API calls with request file workflow
   - Added filter mapping from campaign briefs to audience-builder format
