@@ -22,6 +22,7 @@ class DiscolikesRequest(BaseModel):
 from typing import Any
 
 CONFIDENCE_THRESHOLD = 0.55
+DISCOLIKE_API_KEY = "1a47f174-3e88-4f01-b419-c0c1932b0db7"
 
 def _extract_facebook_url(links: list[dict]) -> str | None:
     for link in links:
