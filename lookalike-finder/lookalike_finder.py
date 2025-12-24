@@ -7,11 +7,12 @@ Finds lookalike companies using DiscoLike API and enriches contacts via AI Ark.
 
 import argparse
 import csv
+import os
 import sys
 import requests
 
-DISCOLIKE_API_KEY = "1a47f174-3e88-4f01-b419-c0c1932b0db7"
-AI_ARK_API_KEY = "997be5efa615474cb58afc665087cffe"
+DISCOLIKE_API_KEY = os.environ.get("DISCOLIKE_API_KEY", "")
+AI_ARK_API_KEY = os.environ.get("AIARK_API_KEY", "")
 
 DISCOLIKE_BASE_URL = "https://api.discolike.com/v1"
 AI_ARK_BASE_URL = "https://api.aiark.io/v1"
@@ -122,6 +123,14 @@ def main():
     )
 
     args = parser.parse_args()
+
+    # Validate API keys
+    if not DISCOLIKE_API_KEY:
+        print("Error: DISCOLIKE_API_KEY environment variable not set", file=sys.stderr)
+        sys.exit(1)
+    if not args.skip_people and not AI_ARK_API_KEY:
+        print("Error: AIARK_API_KEY environment variable not set", file=sys.stderr)
+        sys.exit(1)
 
     # Discover companies
     print(f"Discovering companies for: {args.query}", file=sys.stderr)

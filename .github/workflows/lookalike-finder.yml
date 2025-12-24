@@ -1,0 +1,54 @@
+name: Lookalike Finder
+
+on:
+  workflow_dispatch:
+    inputs:
+      icp_text:
+        description: 'ICP text description (e.g., "B2B marketing agencies, 20-100 employees")'
+        required: true
+        type: string
+      limit:
+        description: 'Maximum number of companies to return'
+        required: false
+        default: '10'
+        type: string
+      skip_people:
+        description: 'Skip contact enrichment'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  find-lookalikes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Lookalike Finder
+        env:
+          DISCOLIKE_API_KEY: ${{ secrets.DISCOLIKE_API_KEY }}
+          AIARK_API_KEY: ${{ secrets.AIARK_API_KEY }}
+        run: |
+          cd lookalike-finder
+          python lookalike_finder.py "${{ inputs.icp_text }}" \
+            --icp \
+            --limit ${{ inputs.limit }} \
+            ${{ inputs.skip_people == true && '--skip-people' || '' }} \
+            --output results.csv
+
+      - name: Upload CSV artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lookalike-results
+          path: lookalike-finder/results.csv
+          retention-days: 30
