@@ -44,3 +44,20 @@ env/
 .genreleases/
 *.zip
 sdd-*/
+
+# Buzzlead List Intelligence System - Secrets & Sensitive Data
+.buzzlead/secrets/api_keys.json
+.buzzlead/secrets/revyops_keys.json
+.buzzlead/secrets/*.json
+!.buzzlead/secrets/secrets-template.json
+
+# Buzzlead - Client Data (contains sensitive business info)
+.buzzlead/clients/*/campaigns/**/*.csv
+.buzzlead/clients/*/campaigns/**/raw/
+.buzzlead/clients/*/campaigns/**/contacts/
+
+# Keep template structure but ignore actual client profiles with real data
+# Uncomment below if client profiles contain sensitive data you want to exclude:
+# .buzzlead/clients/*/profile.md
+# .buzzlead/clients/*/exclusions.md
+# !.buzzlead/clients/_template/
